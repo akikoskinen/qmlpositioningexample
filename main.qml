@@ -13,6 +13,10 @@ ApplicationWindow {
         id: positionSource
     }
 
+    PositioningMethodsModel {
+        id: positioningMethodsModel
+    }
+
     ScrollView {
         id: scroll
         anchors.fill: parent
@@ -59,20 +63,13 @@ ApplicationWindow {
             }
 
             Label {
-                property string _methods: {
-                    switch (positionSource.supportedPositioningMethods) {
-                    case PositionSource.NoPositioningMethods:
-                        return qsTr("none")
-                    case PositionSource.SatellitePositioningMethods:
-                        return qsTr("only satellite")
-                    case PositionSource.NonSatellitePositioningMethods:
-                        return qsTr("only non-satellite")
-                    case PositionSource.AllPositioningMethods:
-                        return qsTr("both satellite and non-satellite")
-                    }
-                }
+                text: qsTr("Supported positioning methods: %1").arg(positioningMethodsModel.getDisplayText(positionSource.supportedPositioningMethods))
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+            }
 
-                text: qsTr("Supported positioning methods: %1").arg(_methods)
+            Label {
+                text: qsTr("Preferred positioning methods: %1").arg(positioningMethodsModel.getDisplayText(positionSource.preferredPositioningMethods))
                 Layout.fillWidth: true
                 wrapMode: Text.Wrap
             }

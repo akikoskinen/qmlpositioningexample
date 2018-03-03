@@ -73,6 +73,20 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 wrapMode: Text.Wrap
             }
+
+            ComboBox {
+                model: positioningMethodsModel
+                textRole: "display"
+                Layout.fillWidth: true
+
+                onActivated: {
+                    positionSource.preferredPositioningMethods = model.get(index).value
+                }
+
+                Component.onCompleted: {
+                    currentIndex = positioningMethodsModel.getIndex(positionSource.preferredPositioningMethods)
+                }
+            }
         }
     }
 }

@@ -57,6 +57,25 @@ ApplicationWindow {
                 onValueChanged: positionSource.updateInterval = value
                 Layout.fillWidth: true
             }
+
+            Label {
+                property string _methods: {
+                    switch (positionSource.supportedPositioningMethods) {
+                    case PositionSource.NoPositioningMethods:
+                        return qsTr("none")
+                    case PositionSource.SatellitePositioningMethods:
+                        return qsTr("only satellite")
+                    case PositionSource.NonSatellitePositioningMethods:
+                        return qsTr("only non-satellite")
+                    case PositionSource.AllPositioningMethods:
+                        return qsTr("both satellite and non-satellite")
+                    }
+                }
+
+                text: qsTr("Supported positioning methods: %1").arg(_methods)
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+            }
         }
     }
 }

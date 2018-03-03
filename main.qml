@@ -42,6 +42,21 @@ ApplicationWindow {
             Label {
                 text: qsTr("Is valid: %1").arg(positionSource.valid ? "yes" : "no")
             }
+
+            Label {
+                text: qsTr("Update interval: %1ms").arg(positionSource.updateInterval)
+            }
+
+            Slider {
+                from: 0
+                to: 10000
+                value: positionSource.updateInterval
+                live: false
+                stepSize: 1000
+                snapMode: Slider.SnapAlways
+                onValueChanged: positionSource.updateInterval = value
+                Layout.fillWidth: true
+            }
         }
     }
 }

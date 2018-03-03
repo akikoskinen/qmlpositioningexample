@@ -38,6 +38,10 @@ ApplicationWindow {
                     }
                 }
             }
+
+            Label {
+                text: qsTr("Is valid: %1").arg(positionSource.valid ? "yes" : "no")
+            }
         }
     }
 }

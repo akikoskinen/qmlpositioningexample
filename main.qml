@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
-import QtPositioning 5.0
+import QtPositioning 5.4
 
 ApplicationWindow {
     visible: true
@@ -20,6 +20,10 @@ ApplicationWindow {
 
     PositioningMethodsModel {
         id: positioningMethodsModel
+    }
+
+    function _boolAsString(b) {
+        return b ? qsTr("True") : qsTr("False")
     }
 
     ScrollView {
@@ -128,6 +132,54 @@ ApplicationWindow {
 
                     Component.onCompleted: positionSource.positionChanged.connect(blink)
                 }
+            }
+
+            GridLayout {
+                columns: 3
+
+                Label { text: qsTr("Position property"); font.bold: true }
+                Label { text: qsTr("Is valid?"); font.bold: true }
+                Label { text: qsTr("Value"); font.bold: true }
+
+                Label { text: qsTr("Timestamp") }
+                Label { text: " " }
+                Label { text: Qt.formatDate(positionSource.position.timestamp, Qt.DefaultLocaleShortDate) + " " + Qt.formatTime(positionSource.position.timestamp, 'hh:mm:ss') }
+
+                Label { text: qsTr("Latitude (deg)") }
+                Label { text: _boolAsString(positionSource.position.latitudeValid) }
+                Label { text: positionSource.position.coordinate.latitude }
+
+                Label { text: qsTr("Longitude (deg)") }
+                Label { text: _boolAsString(positionSource.position.longitudeValid) }
+                Label { text: positionSource.position.coordinate.longitude }
+
+                Label { text: qsTr("Altitude (m)") }
+                Label { text: _boolAsString(positionSource.position.altitudeValid) }
+                Label { text: positionSource.position.coordinate.altitude }
+
+                Label { text: qsTr("Direction (deg)") }
+                Label { text: _boolAsString(positionSource.position.directionValid) }
+                Label { text: positionSource.position.direction }
+
+                Label { text: qsTr("Speed (m/s)") }
+                Label { text: _boolAsString(positionSource.position.speedValid) }
+                Label { text: positionSource.position.speed }
+
+                Label { text: qsTr("Vertical speed (m/s)") }
+                Label { text: _boolAsString(positionSource.position.verticalSpeedValid) }
+                Label { text: positionSource.position.verticalSpeed }
+
+                Label { text: qsTr("Horiz. accuracy (m)") }
+                Label { text: _boolAsString(positionSource.position.horizontalAccuracyValid) }
+                Label { text: positionSource.position.horizontalAccuracy }
+
+                Label { text: qsTr("Vert. accuracy (m)") }
+                Label { text: _boolAsString(positionSource.position.verticalAccuracyValid) }
+                Label { text: positionSource.position.verticalAccuracy }
+
+                Label { text: qsTr("Magnetic variation (deg)") }
+                Label { text: _boolAsString(positionSource.position.magneticVariationValid) }
+                Label { text: positionSource.position.magneticVariation }
             }
         }
     }

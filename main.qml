@@ -45,6 +45,10 @@ ApplicationWindow {
             }
 
             WrappingLabel {
+                text: qsTr("Plugin name: %1").arg(positionSource.name)
+            }
+
+            WrappingLabel {
                 text: qsTr("Is valid: %1").arg(positionSource.valid ? "yes" : "no")
             }
 

@@ -44,11 +44,11 @@ ApplicationWindow {
                 }
             }
 
-            Label {
+            WrappingLabel {
                 text: qsTr("Is valid: %1").arg(positionSource.valid ? "yes" : "no")
             }
 
-            Label {
+            WrappingLabel {
                 text: qsTr("Update interval: %1ms").arg(positionSource.updateInterval)
             }
 
@@ -63,16 +63,12 @@ ApplicationWindow {
                 Layout.fillWidth: true
             }
 
-            Label {
+            WrappingLabel {
                 text: qsTr("Supported positioning methods: %1").arg(positioningMethodsModel.getDisplayText(positionSource.supportedPositioningMethods))
-                Layout.fillWidth: true
-                wrapMode: Text.Wrap
             }
 
-            Label {
+            WrappingLabel {
                 text: qsTr("Preferred positioning methods:")
-                Layout.fillWidth: true
-                wrapMode: Text.Wrap
             }
 
             ComboBox {

@@ -14,6 +14,10 @@ ApplicationWindow {
         id: positionSource
     }
 
+    SourceErrorModel {
+        id: sourceErrorModel
+    }
+
     PositioningMethodsModel {
         id: positioningMethodsModel
     }
@@ -50,6 +54,10 @@ ApplicationWindow {
 
             WrappingLabel {
                 text: qsTr("Is valid: %1").arg(positionSource.valid ? "yes" : "no")
+            }
+
+            WrappingLabel {
+                text: qsTr("Source error: %1").arg(sourceErrorModel.getDisplayText(positionSource.sourceError))
             }
 
             WrappingLabel {

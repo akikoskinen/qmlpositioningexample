@@ -4,5 +4,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>PositioningMethodsModel.qml</file>
         <file>WrappingLabel.qml</file>
+        <file>SourceErrorModel.qml</file>
     </qresource>
 </RCC>

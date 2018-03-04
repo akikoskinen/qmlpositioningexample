@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
 import QtPositioning 5.0
 
 ApplicationWindow {
@@ -69,7 +70,7 @@ ApplicationWindow {
             }
 
             Label {
-                text: qsTr("Preferred positioning methods: %1").arg(positioningMethodsModel.getDisplayText(positionSource.preferredPositioningMethods))
+                text: qsTr("Preferred positioning methods:")
                 Layout.fillWidth: true
                 wrapMode: Text.Wrap
             }
@@ -79,12 +80,29 @@ ApplicationWindow {
                 textRole: "display"
                 Layout.fillWidth: true
 
-                onActivated: {
-                    positionSource.preferredPositioningMethods = model.get(index).value
+                function _setSelectionToCurrentValue() {
+                    currentIndex = positioningMethodsModel.getIndex(positionSource.preferredPositioningMethods)
                 }
 
-                Component.onCompleted: {
-                    currentIndex = positioningMethodsModel.getIndex(positionSource.preferredPositioningMethods)
+                Component.onCompleted: _setSelectionToCurrentValue()
+
+                onActivated: {
+                    var newValue = model.get(index).value
+                    positionSource.preferredPositioningMethods = newValue
+                    if (positionSource.preferredPositioningMethods !== newValue) {
+                        _setSelectionToCurrentValue()
+                        changedBySystemDialog.desiredMethod = newValue
+                        changedBySystemDialog.actualMethod = positionSource.preferredPositioningMethods
+                        changedBySystemDialog.open()
+                    }
+                }
+
+                MessageDialog {
+                    id: changedBySystemDialog
+                    title: qsTr("Notice")
+                    text: qsTr('You tried to set the preferred positioning methods to "%1" but the system changed it to "%2".').arg(positioningMethodsModel.getDisplayText(desiredMethod)).arg(positioningMethodsModel.getDisplayText(actualMethod))
+                    property var desiredMethod
+                    property var actualMethod
                 }
             }
         }

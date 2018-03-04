@@ -113,6 +113,22 @@ ApplicationWindow {
                     property var actualMethod
                 }
             }
+
+            RowLayout {
+                spacing: scroll.padding
+
+                Label {
+                    text: qsTr("Position changed:")
+                }
+
+                Blinker {
+                    id: updateBlinker
+                    width: 24
+                    height: width
+
+                    Component.onCompleted: positionSource.positionChanged.connect(blink)
+                }
+            }
         }
     }
 }
